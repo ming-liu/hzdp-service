@@ -7,4 +7,8 @@ import com.hzdp.service.UserAccountService;
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
 
+	public String sayHello() {
+		return "hello world";
+	}
+
 }
