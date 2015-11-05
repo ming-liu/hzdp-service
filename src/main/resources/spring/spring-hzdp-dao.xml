@@ -9,9 +9,11 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<context:property-placeholder location="classpath*:jdbc.properties"/>
+	<bean id="hzdp.sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="hzdp.datasource" />
+		<property name="configLocation"
+			value="classpath:config/sqlmap/base/sqlmap-config-service.xml" />
+		<property name="sqlConvert" ref="mysqlConverter" />
+	</bean>
 
-	<context:component-scan base-package="com.hzdp.service" />
-	
-	<context:annotation-config />
 </beans>
