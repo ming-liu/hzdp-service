@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserAccount">
+
+	<resultMap id="UserAccountMap" class="com.hzdp.entity.UserAccount">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="mobile" property="mobile" />
+		<result column="password" property="password" />
+	</resultMap>
+
+	<sql id="selectAll">
+		SELECT T.id,T.name,T.mobile,T.password
+		FROM UserAccount T
+	</sql>
+
+	<select id="findById" resultMap="UserAccountMap" parameterClass="int">
+		<include refid="selectAll" />
+		Where T.id = #value#
+	</select>
+
+</sqlMap>
