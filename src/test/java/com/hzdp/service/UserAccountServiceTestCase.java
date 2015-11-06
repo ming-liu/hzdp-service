@@ -14,5 +14,6 @@ public class UserAccountServiceTestCase extends BaseTestCase {
 	public void testSayHello() {
 		String sayHello = userAccountService.sayHello();
 		logger.info(sayHello);
+		System.out.println(sayHello);
 	}
 }
