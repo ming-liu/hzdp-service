@@ -6,4 +6,5 @@
 		maxTransactions="3000" useStatementNamespaces="true" />
 
 	<sqlMap resource="config/sqlmap/UserAccount.xml" />
+	<sqlMap resource="config/sqlmap/Brand.xml" />
 </sqlMapConfig>

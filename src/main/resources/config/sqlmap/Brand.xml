@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Brand">
+
+	<resultMap id="BrandMap" class="com.hzdp.entity.Brand">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="enName" property="enName" />
+		<result column="url" property="url" />
+		<result column="companyId" property="companyId" />
+	</resultMap>
+
+	<sql id="selectAll">
+		SELECT T.id,T.name,T.enName,T.url,T.companyId
+		FROM Brand T
+	</sql>
+
+	<select id="findById" resultMap="BrandMap" parameterClass="int">
+		<include refid="selectAll" />
+		Where T.id = #value#
+	</select>
+
+	<select id="findAll" resultMap="BrandMap">
+		<include refid="selectAll" />
+	</select>
+
+</sqlMap>

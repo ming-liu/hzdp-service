@@ -16,7 +16,8 @@ public class BaseDao {
 		return sqlMapClient.queryForObject(id, parameterObject);
 	}
 
-	public List queryList(String id, Object parameterObject) throws SQLException {
+	@SuppressWarnings("unchecked")
+	public <T> List<T> queryList(String id, Object parameterObject) throws SQLException {
 		return sqlMapClient.queryForList(id, parameterObject);
 	}
 
