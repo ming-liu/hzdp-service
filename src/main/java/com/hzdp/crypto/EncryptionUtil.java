@@ -31,11 +31,27 @@ public class EncryptionUtil {
 		}
 	}
 
+	private static byte[] strip(byte[] bytes) {
+		int blank = 0;
+		for (int i = bytes.length - 1; i >= 0; i--) {
+			if (bytes[i] == '\0') {
+				blank++;
+			} else {
+				break;
+			}
+		}
+		byte[] result = new byte[bytes.length - blank];
+		System.arraycopy(bytes, 0, result, 0, result.length);
+		return result;
+	}
+
 	public static byte[] decrpt(byte[] content, String key, String iv) throws DecryptionException {
 		try {
 			Cipher cipher = Cipher.getInstance(AES_Transform);
 			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(ENCODING_TEXT), AES_Algrithm), new IvParameterSpec(iv.getBytes(ENCODING_TEXT)));
-			return cipher.doFinal(content);
+			byte[] withPadding = cipher.doFinal(content);
+			byte[] result = strip(withPadding);
+			return result;
 		} catch (Exception e) {
 			throw new DecryptionException(e.getMessage());
 		}
@@ -43,10 +59,8 @@ public class EncryptionUtil {
 
 	public static String decrptToStr(byte[] content, String key, String iv) throws DecryptionException {
 		try {
-			Cipher cipher = Cipher.getInstance(AES_Transform);
-			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(ENCODING_TEXT), AES_Algrithm), new IvParameterSpec(iv.getBytes(ENCODING_TEXT)));
-			byte[] doFinal = cipher.doFinal(content);
-			return new String(doFinal, ENCODING_TEXT);
+			byte[] bytes = decrpt(content, key, iv);
+			return new String(bytes, ENCODING_TEXT);
 		} catch (Exception e) {
 			throw new DecryptionException(e.getMessage());
 		}
@@ -61,24 +75,4 @@ public class EncryptionUtil {
 		}
 		return bytes;
 	}
-
-	public static void main(String[] args) throws EncryptionException, UnsupportedEncodingException {
-		byte[] encrpt = encrpt("abcdefghijklmnopqrstuvwxyz", "D7C6F71A12153EE5", "55C930D827BDABFD");
-		byte[] decrpt = decrpt(encrpt, "D7C6F71A12153EE5", "55C930D827BDABFD");
-		String decrptToStr = decrptToStr(encrpt, "D7C6F71A12153EE5", "55C930D827BDABFD");
-		System.out.println(decrptToStr);
-		
-		StringBuilder sb = new StringBuilder();
-		byte[] bs = new byte[]{49,50,70,65,0,0,0,0,0,0,0,0,0,0};
-		for (byte b : encrpt) {
-			int ab = b&0xFF;
-			String hxStr = Integer.toHexString(ab);
-			sb.append(hxStr);
-		}
-		System.out.println(sb.toString());
-		System.out.println(new String(encrpt,"UTF-8").trim());
-		// encrpt = encrpt("abcdefghijklmnopqrstuvwxyz".getBytes(ENCODING_TEXT),
-		// "testtesttesttest", "1234567812345678");
-	}
-
 }
