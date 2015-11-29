@@ -9,13 +9,20 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<context:property-placeholder location="classpath*:config/jdbc.properties"/>
+	<context:component-scan base-package="com.hzdp.cache" />
 
-	<context:component-scan base-package="com.hzdp.dao" />
-	<context:component-scan base-package="com.hzdp.service" />
-	
-	<context:annotation-config />
-	<import resource="spring-hzdp-dao.xml"/>
-	<import resource="spring-hzdp-db.xml"/>
-	<import resource="spring-hzdp-cache.xml"/>
+
+	<bean id="cacheTypes" name="cacheTypes" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="sms">
+					<bean class="com.hzdp.cache.support.simple.DefaultCacheType">
+						<property name="type" value="1"></property>
+						<property name="expirePeriod" value="120"></property>
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
 </beans>

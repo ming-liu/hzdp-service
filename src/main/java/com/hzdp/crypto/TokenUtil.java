@@ -1,5 +1,7 @@
 package com.hzdp.crypto;
 
+import com.hzdp.crypto.codec.HexString;
+
 public class TokenUtil {
 
 	private static final String key = "07C1F71A22153AE5";
@@ -7,20 +9,7 @@ public class TokenUtil {
 
 	public static String generateToken(String content) {
 		byte[] encrpt = EncryptionUtil.encrpt(content, key, iv);
-		return convertByte2Hex(encrpt);
-	}
-
-	private static String convertByte2Hex(byte[] encrpt) {
-		StringBuilder sb = new StringBuilder();
-		for (byte b : encrpt) {
-			int ab = b & 0xFF;
-			String hex = Integer.toHexString(ab);
-			if (hex.length() == 1) {
-				hex = '0' + hex;
-			}
-			sb.append(hex);
-		}
-		return sb.toString();
+		return HexString.convertByte2Hex(encrpt);
 	}
 
 	public static String parseToken(String token) {
