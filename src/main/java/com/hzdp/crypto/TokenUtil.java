@@ -13,21 +13,8 @@ public class TokenUtil {
 	}
 
 	public static String parseToken(String token) {
-		char[] charArray = token.toCharArray();
-		int length = charArray.length / 2;
-		byte[] bytes = new byte[length];
-		for (int i = 0; i < length; i++) {
-			bytes[i] = (byte) (char2Byte(charArray[i * 2]) << 4 | char2Byte(charArray[i * 2 + 1]));
-		}
+		byte[] bytes = HexString.converHexStr2Bytes(token);
 		return EncryptionUtil.decrptToStr(bytes, key, iv);
-	}
-
-	private static byte char2Byte(char c) {
-		if (c >= '0' && c <= '9') {
-			return (byte) (c - '0');
-		} else {
-			return (byte) (c - 'a' + 10);
-		}
 	}
 
 	public static void main(String[] args) throws Exception {

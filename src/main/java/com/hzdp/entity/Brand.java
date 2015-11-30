@@ -1,6 +1,14 @@
 package com.hzdp.entity;
 
-public class Brand {
+import java.io.Serializable;
+
+public class Brand implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1739553494987590866L;
+	
 	private int id;
 	private String name;
 	private String enName;

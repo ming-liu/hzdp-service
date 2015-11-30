@@ -1,5 +1,6 @@
 package com.hzdp.cache.service.impl;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,8 +24,14 @@ public class DefaultCacheImpl implements CacheService {
 			String mdKey = HexString.convertByte2Hex(digest);
 			int expirePeriod = cacheType.expirePeriod();
 			int type = cacheType.type();
+			String persistObject = CacheObjectUtil.persistObject(object);
+			System.out.println(persistObject);
+			Object parseObject = CacheObjectUtil.parseObject(persistObject);
+			System.out.println(parseObject);
 		} catch (NoSuchAlgorithmException e) {
 		} catch (UnsupportedEncodingException e) {
+		} catch (IOException e) {
+		} catch (ClassNotFoundException e) {
 		}
 		return false;
 	}
