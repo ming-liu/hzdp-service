@@ -28,6 +28,8 @@ public class DefaultCacheImpl implements CacheService {
 			System.out.println(persistObject);
 			Object parseObject = CacheObjectUtil.parseObject(persistObject);
 			System.out.println(parseObject);
+			String serialize = JsonSerializer.serialize(object);
+			System.out.println(serialize);
 		} catch (NoSuchAlgorithmException e) {
 		} catch (UnsupportedEncodingException e) {
 		} catch (IOException e) {
