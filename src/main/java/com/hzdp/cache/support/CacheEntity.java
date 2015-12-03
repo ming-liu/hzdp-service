@@ -2,10 +2,19 @@ package com.hzdp.cache.support;
 
 public class CacheEntity {
 
+	private int id;
 	private int cacheType;
 	private String key;
 	private String value;
 	private int expirePeriod;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getCacheType() {
 		return cacheType;

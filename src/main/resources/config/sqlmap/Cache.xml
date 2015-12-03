@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Cache">
+	
+	<resultMap id="CacheEntityMap" class="com.hzdp.cache.support.CacheEntity">
+		<result column="id" property="id" />
+		<result column="cacheType" property="cacheType" />
+		<result column="key" property="key" />
+		<result column="value" property="value" />
+		<result column="expirePeriod" property="expirePeriod" />
+	</resultMap>
+
+	<sql id="selectAll">
+		SELECT T.id,T.cacheType,T.key,T.value,T.expirePeriod
+		FROM Cache T
+	</sql>
+
+	<select id="findByKey" resultMap="CacheEntityMap">
+		<include refid="selectAll" />
+		Where T.key = #value#
+		limit 1
+	</select>
+
+	<insert id="insert">
+		insert into Cache(`cacheType`,`key`,`value`,`expirePeriod`) 
+		values
+		(#po.cacheType#,#po.key#,#po.value#,#po.expirePeriod#)
+	</insert>
+
+</sqlMap>
