@@ -9,10 +9,11 @@
 		<result column="key" property="key" />
 		<result column="value" property="value" />
 		<result column="expirePeriod" property="expirePeriod" />
+		<result column="addTime" property="addTime" />
 	</resultMap>
 
 	<sql id="selectAll">
-		SELECT T.id,T.cacheType,T.key,T.value,T.expirePeriod
+		SELECT T.id,T.cacheType,T.key,T.value,T.expirePeriod,T.addTime
 		FROM Cache T
 	</sql>
 
@@ -23,9 +24,9 @@
 	</select>
 
 	<insert id="insert">
-		insert into Cache(`cacheType`,`key`,`value`,`expirePeriod`) 
+		insert into Cache(`cacheType`,`key`,`value`,`expirePeriod`,`addTime`) 
 		values
-		(#po.cacheType#,#po.key#,#po.value#,#po.expirePeriod#)
+		(#po.cacheType#,#po.key#,#po.value#,#po.expirePeriod#,#po.addTime#)
 	</insert>
 
 </sqlMap>

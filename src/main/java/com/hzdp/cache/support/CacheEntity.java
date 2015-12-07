@@ -1,5 +1,7 @@
 package com.hzdp.cache.support;
 
+import java.util.Date;
+
 public class CacheEntity {
 
 	private int id;
@@ -7,6 +9,7 @@ public class CacheEntity {
 	private String key;
 	private String value;
 	private int expirePeriod;
+	private Date addTime;
 
 	public int getId() {
 		return id;
@@ -46,6 +49,14 @@ public class CacheEntity {
 
 	public void setExpirePeriod(int expirePeriod) {
 		this.expirePeriod = expirePeriod;
+	}
+
+	public Date getAddTime() {
+		return addTime;
+	}
+
+	public void setAddTime(Date addTime) {
+		this.addTime = addTime;
 	}
 
 }

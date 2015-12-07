@@ -22,7 +22,7 @@ public class CacheServiceTestCase extends BaseTestCase {
 		brand.setId(3);
 		brand.setName("12活动活动33d");
 		brand.setUrl("http://dsjflsl.ei332.com");
-		CacheType smsCacheType = CacheTypeFactory.getCacheType("sms");
+		CacheType smsCacheType = CacheTypeFactory.getCacheType("captcha");
 		cacheService.put(smsCacheType, "13777777777", brand);
 	}
 

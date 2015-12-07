@@ -3,6 +3,7 @@ package com.hzdp.cache.service.impl;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public class DefaultCacheImpl implements CacheService {
 			CacheEntity cacheEntity = new CacheEntity();
 			cacheEntity.setCacheType(cacheType.type());
 			cacheEntity.setExpirePeriod(cacheType.expirePeriod());
+			cacheEntity.setAddTime(new Date());
 			cacheEntity.setKey(mdKey);
 			cacheEntity.setValue(value);
 			cacheDao.insert(cacheEntity);
