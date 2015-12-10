@@ -1,8 +1,5 @@
 package com.hzdp.cache.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +9,13 @@ import com.hzdp.cache.dao.CacheDao;
 import com.hzdp.cache.service.CacheService;
 import com.hzdp.cache.support.CacheEntity;
 import com.hzdp.cache.support.CacheType;
-import com.hzdp.crypto.codec.HexString;
+import com.hzdp.crypto.codec.MD5;
 import com.hzdp.serialize.Serializer;
 import com.hzdp.serialize.SerializerFactory;
 
 @Service
 public class DefaultCacheImpl implements CacheService {
 
-	public static final String MD5 = "MD5";
 
 	@Autowired
 	private CacheDao cacheDao;
@@ -29,7 +25,7 @@ public class DefaultCacheImpl implements CacheService {
 	@Override
 	public boolean put(CacheType cacheType, String key, Object object) {
 		try {
-			String mdKey = parse2MDKey(key);
+			String mdKey = MD5.digest(key);
 			String value = serializer.serialize(object);
 			CacheEntity cacheEntity = new CacheEntity();
 			cacheEntity.setCacheType(cacheType.type());
@@ -44,17 +40,10 @@ public class DefaultCacheImpl implements CacheService {
 		return true;
 	}
 
-	private String parse2MDKey(String key) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		MessageDigest md = MessageDigest.getInstance(MD5);
-		byte[] digest = md.digest(key.getBytes("UTF-8"));
-		String mdKey = HexString.convertByte2Hex(digest);
-		return mdKey;
-	}
-
 	@Override
 	public Object get(CacheType cacheType, String key) {
 		try {
-			String mdKey = parse2MDKey(key);
+			String mdKey = MD5.digest(key);
 			CacheEntity cacheEntity = cacheDao.findByKey(mdKey);
 			String value = cacheEntity.getValue();
 			return serializer.deserialize(value);
