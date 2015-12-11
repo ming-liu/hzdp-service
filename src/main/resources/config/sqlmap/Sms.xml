@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Sms">
+	
+	<resultMap id="SmsResultMap" class="com.hzdp.sms.entity.Sms">
+		<result column="id" property="id" />
+		<result column="mobile" property="mobile" />
+		<result column="ip" property="ip" />
+		<result column="contentType" property="contentType" />
+		<result column="content" property="content" />
+		<result column="addTime" property="addTime" />
+		<result column="updateTime" property="updateTime" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<sql id="selectAll">
+		SELECT T.id,T.mobile,T.ip,T.contentType,T.content,T.addTime,T.updateTime,T.status
+		FROM Sms T
+	</sql>
+
+	<select id="findByMobile" resultMap="SmsResultMap">
+		<include refid="selectAll" />
+		Where T.mobile = #mobile#
+	</select>
+	
+	<select id="findByIp" resultMap="SmsResultMap">
+		<include refid="selectAll" />
+		Where T.ip = #ip#
+	</select>
+
+	<insert id="insert">
+		insert into Sms(`mobile`,`ip`,`contentType`,`content`,`addTime`,`updateTime`,`status`) 
+		values
+		(#po.mobile#,#po.ip#,#po.contentType#,#po.content#,#po.addTime#,#po.updateTime#,#po.status#)
+	</insert>
+
+</sqlMap>

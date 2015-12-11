@@ -1,10 +1,11 @@
 package com.hzdp.sms.bean;
 
-public class SmsResult {
+public class SmsVerifyResponse {
 
 	public static final int SUCCESS = 1;
-	public static final int TOO_MUCH = 2;
-	public static final int WRONG_MOBILE = 3;
+	public static final int IP_CHANGED = 2;
+	public static final int TIMEOUT = 3;
+
 	public static final int FAIL = 4;
 
 	private int type = FAIL;
