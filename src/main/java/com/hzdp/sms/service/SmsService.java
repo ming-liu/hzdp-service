@@ -1,4 +1,4 @@
-package com.hzdp.sms;
+package com.hzdp.sms.service;
 
 import com.hzdp.sms.bean.SmsSendResponse;
 import com.hzdp.sms.bean.SmsVerifyResponse;

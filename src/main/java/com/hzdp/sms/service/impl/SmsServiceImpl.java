@@ -1,4 +1,4 @@
-package com.hzdp.sms.impl;
+package com.hzdp.sms.service.impl;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hzdp.sms.SmsConstants;
-import com.hzdp.sms.SmsService;
 import com.hzdp.sms.bean.SmsSendResponse;
 import com.hzdp.sms.bean.SmsVerifyResponse;
 import com.hzdp.sms.dao.SmsDao;
 import com.hzdp.sms.entity.Sms;
+import com.hzdp.sms.service.SmsService;
 import com.hzdp.util.IPUtil;
 
 @Service

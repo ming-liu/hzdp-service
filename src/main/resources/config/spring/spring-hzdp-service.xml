@@ -13,6 +13,7 @@
 
 	<context:component-scan base-package="com.hzdp.dao" />
 	<context:component-scan base-package="com.hzdp.service" />
+	<context:component-scan base-package="com.hzdp.sms.service" />
 	
 	<context:annotation-config />
 	<import resource="spring-hzdp-dao.xml"/>
