@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.hzdp.dao.BaseDao;
 import com.hzdp.sms.entity.Sms;
 
+@Service
 public class SmsDao extends BaseDao {
 
 //	public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class SmsDao extends BaseDao {
 	public boolean insert(Sms sms) throws SQLException {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("po", sms);
-		insert("Sms.insert", sms);
+		insert("Sms.insert", params);
 		return true;
 	}
 

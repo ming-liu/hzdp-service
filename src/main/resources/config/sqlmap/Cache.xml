@@ -27,6 +27,7 @@
 		insert into Cache(`cacheType`,`key`,`value`,`expirePeriod`,`addTime`) 
 		values
 		(#po.cacheType#,#po.key#,#po.value#,#po.expirePeriod#,#po.addTime#)
+		ON DUPLICATE KEY UPDATE `value` = #po.value#,`addTime` = #po.addTime#
 	</insert>
 
 </sqlMap>

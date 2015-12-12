@@ -8,4 +8,5 @@
 	<sqlMap resource="config/sqlmap/UserAccount.xml" />
 	<sqlMap resource="config/sqlmap/Brand.xml" />
 	<sqlMap resource="config/sqlmap/Cache.xml" />
+	<sqlMap resource="config/sqlmap/Sms.xml" />
 </sqlMapConfig>

@@ -16,7 +16,6 @@ import com.hzdp.serialize.SerializerFactory;
 @Service
 public class DefaultCacheImpl implements CacheService {
 
-
 	@Autowired
 	private CacheDao cacheDao;
 
@@ -45,8 +44,11 @@ public class DefaultCacheImpl implements CacheService {
 		try {
 			String mdKey = MD5.digest(key);
 			CacheEntity cacheEntity = cacheDao.findByKey(mdKey);
-			String value = cacheEntity.getValue();
-			return serializer.deserialize(value);
+			long availableTime = cacheEntity.getAddTime().getTime() + cacheEntity.getExpirePeriod();
+			if (availableTime <= System.currentTimeMillis()) {
+				String value = cacheEntity.getValue();
+				return serializer.deserialize(value);
+			}
 		} catch (Exception e) {
 		}
 		return null;

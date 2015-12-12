@@ -9,15 +9,7 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<context:property-placeholder location="classpath*:config/jdbc.properties"/>
+	<context:component-scan base-package="com.hzdp.user.dao" />
+	<context:component-scan base-package="com.hzdp.user.service" />
 
-	<context:component-scan base-package="com.hzdp.dao" />
-	<context:component-scan base-package="com.hzdp.service" />
-	
-	<context:annotation-config />
-	<import resource="spring-hzdp-dao.xml"/>
-	<import resource="spring-hzdp-db.xml"/>
-	<import resource="spring-hzdp-cache.xml"/>
-	<import resource="spring-hzdp-sms.xml"/>
-	<import resource="spring-hzdp-user.xml"/>
 </beans>

@@ -57,6 +57,7 @@ public class SmsServiceImpl implements SmsService {
 			po.setStatus(SmsConstants.StatusCreate);
 			po.setUpdateTime(po.getAddTime());
 			smsDao.insert(po);
+			response.setType(SmsSendResponse.SUCCESS);
 		} catch (SQLException e) {
 			logger.error("sendVerifyCode error", e);
 		}

@@ -58,5 +58,5 @@ public class CacheEntity {
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
 	}
-
+	
 }

@@ -3,15 +3,21 @@
 
 <sqlMap namespace="UserAccount">
 
+	<typeAlias alias="UserAccount" type="com.hzdp.entity.UserAccount" />
+	
 	<resultMap id="UserAccountMap" class="com.hzdp.entity.UserAccount">
 		<result column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="mobile" property="mobile" />
 		<result column="password" property="password" />
+		<result column="ip" property="ip" />
+		<result column="salt" property="salt" />
+		<result column="addTime" property="addTime" />
+		<result column="userLevel" property="userLevel" />
 	</resultMap>
 
 	<sql id="selectAll">
-		SELECT T.id,T.name,T.mobile,T.password
+		SELECT T.id,T.name,T.mobile,T.password,T.ip,T.addTime,T.salt,T.userLevel
 		FROM UserAccount T
 	</sql>
 
@@ -19,5 +25,18 @@
 		<include refid="selectAll" />
 		Where T.id = #value#
 	</select>
+	
+	<select id="findByMobile" resultMap="UserAccountMap" parameterClass="int">
+		<include refid="selectAll" />
+		Where T.mobile = #value#
+	</select>
 
+	<insert id="save" parameterClass="UserAccount">
+		insert into UserAccount(`name`,`mobile`,`ip`,`password`,`addTime`,`salt`) 
+		values
+		(#name#,#mobile#,#ip#,#password#,#addTime#,#salt#)
+		<selectKey keyProperty="id" resultClass="int">
+			SELECT last_insert_id();
+		</selectKey>
+	</insert>
 </sqlMap>
