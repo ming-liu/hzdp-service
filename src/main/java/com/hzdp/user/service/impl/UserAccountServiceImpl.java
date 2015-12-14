@@ -25,6 +25,17 @@ public class UserAccountServiceImpl implements UserAccountService {
 	private UserAccountDao userAccountDao;
 
 	@Override
+	public UserAccount findById(int id) {
+		UserAccount userAccount = null;
+		try {
+			userAccount = userAccountDao.find(id);
+		} catch (SQLException e) {
+			logger.error("findByMobile error", e);
+		}
+		return userAccount;
+	}
+
+	@Override
 	public UserAccount findByMobile(String mobile) {
 		UserAccount userAccount = null;
 		try {
@@ -88,16 +99,46 @@ public class UserAccountServiceImpl implements UserAccountService {
 		try {
 			UserAccount userAccount = userAccountDao.find(userId);
 			// TODO 是否保持登录
-			return TokenUtil.generateToken(userId + "|" + userAccount.getUserLevel() + "|" + (keepLogin ? 1 : 0));
+			return generate(userId, keepLogin, userAccount);
 		} catch (SQLException e) {
 			logger.error("find error", e);
 		}
 		return null;
 	}
 
+	private String generate(int userId, boolean keepLogin, UserAccount userAccount) {
+		return TokenUtil.generateToken(userId + "|" + userAccount.getUserLevel() + "|" + (keepLogin ? 1 : 0));
+	}
+
 	@Override
 	public String login(int userId, boolean keepLogin) {
 		return getToken(userId, keepLogin);
+	}
+
+	@Override
+	public String login(UserAccount userAccount, boolean keepLogin) {
+		return generate(userAccount.getId(), keepLogin, userAccount);
+	}
+
+	@Override
+	public int parseToken(String token) {
+		if (token == null || token.isEmpty()) {
+			return 0;
+		}
+		try {
+			String parseToken = TokenUtil.parseToken(token);
+			if (parseToken != null) {
+				String[] split = parseToken.split("\\|");
+				if (split.length == 3) {
+					int userId = Integer.parseInt(split[0]);
+					if (userId > 0) {
+						return userId;
+					}
+				}
+			}
+		} catch (Throwable e) {
+		}
+		return 0;
 	}
 
 }

@@ -12,10 +12,14 @@ public interface UserAccountService {
 	 * @return
 	 */
 	String login(int userId, boolean keepLogin);
+	String login(UserAccount userAccount, boolean keepLogin);
 
+	UserAccount findById(int id);
 	UserAccount findByMobile(String mobile);
 
 	int create(UserAccount userAccount);
 
 	boolean checkPwd(String password, UserAccount userAccount);
+	
+	int parseToken(String token);
 }

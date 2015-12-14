@@ -26,7 +26,7 @@
 		Where T.id = #value#
 	</select>
 	
-	<select id="findByMobile" resultMap="UserAccountMap" parameterClass="int">
+	<select id="findByMobile" resultMap="UserAccountMap" >
 		<include refid="selectAll" />
 		Where T.mobile = #value#
 	</select>
