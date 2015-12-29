@@ -1,5 +1,7 @@
 package com.hzdp.service;
 
-public interface ProductService {
+import com.hzdp.entity.Product;
 
+public interface ProductService {
+	Product findById(int productId);
 }

@@ -1,0 +1,23 @@
+<sqlMap namespace="Product">
+
+	<resultMap id="ProductMap" class="com.hzdp.entity.Product">
+		<result column="picture" property="picture" />
+		<result column="name" property="name" />
+		<result column="specifications" property="specifications" />
+		<result column="categoryId" property="categoryId" />
+		<result column="efficacy" property="efficacy" />
+		<result column="productInfo" property="productInfo" />
+		<result column="star" property="star" />
+	</resultMap>
+
+	<sql id="selectAll">
+		SELECT T.picture,T.name,T.specifications,T.categoryId,T.efficacy,T.productInfo,T.star
+		FROM Product T
+	</sql>
+
+	<select id="findById" resultMap="ProductMap" parameterClass="int">
+		<include refid="selectAll" />
+		Where T.id = #value#
+	</select>
+	
+</sqlMap>
