@@ -15,13 +15,17 @@ public class Review implements Serializable {
 	private int referId;
 	private int referType;
 	private Date addtime;
+	// default : 1 ; deleted:0
 	private int status;
 	private String review;
 	private int grade1;
 	private int grade2;
 	private int grade3;
-	private int grade4;
-	private int ip;
+	// (1:20以下 2:20-25 3:26-30 4:30-39 5:40岁以上)
+	private int age;
+	// (1:混合皮肤 2:敏感皮肤 3:干性皮肤 4:油性皮肤 5:中性皮肤 )
+	private int skin;
+	private long ip;
 	private int platform;
 
 	public int getId() {
@@ -104,19 +108,27 @@ public class Review implements Serializable {
 		this.grade3 = grade3;
 	}
 
-	public int getGrade4() {
-		return grade4;
+	public int getAge() {
+		return age;
 	}
 
-	public void setGrade4(int grade4) {
-		this.grade4 = grade4;
+	public void setAge(int age) {
+		this.age = age;
 	}
 
-	public int getIp() {
+	public int getSkin() {
+		return skin;
+	}
+
+	public void setSkin(int skin) {
+		this.skin = skin;
+	}
+
+	public long getIp() {
 		return ip;
 	}
 
-	public void setIp(int ip) {
+	public void setIp(long ip) {
 		this.ip = ip;
 	}
 
