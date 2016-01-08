@@ -20,6 +20,7 @@ public class ReviewRequest implements Serializable {
 	private String info;
 	private int platform;
 	private boolean captchaChecked = false;
+	private int reviewType;
 
 	public int getProductId() {
 		return productId;
@@ -107,6 +108,14 @@ public class ReviewRequest implements Serializable {
 
 	public void setCaptchaChecked(boolean captchaChecked) {
 		this.captchaChecked = captchaChecked;
+	}
+
+	public int getReviewType() {
+		return reviewType;
+	}
+
+	public void setReviewType(int reviewType) {
+		this.reviewType = reviewType;
 	}
 
 }

@@ -27,7 +27,9 @@ public class Review implements Serializable {
 	private int skin;
 	private long ip;
 	private int platform;
-	
+	// (0:普通评论;1精华评论)
+	private int reviewType;
+
 	// TODO to remove,use review image
 	private String urls;
 
@@ -149,6 +151,14 @@ public class Review implements Serializable {
 
 	public void setUrls(String urls) {
 		this.urls = urls;
+	}
+
+	public int getReviewType() {
+		return reviewType;
+	}
+
+	public void setReviewType(int reviewType) {
+		this.reviewType = reviewType;
 	}
 
 }

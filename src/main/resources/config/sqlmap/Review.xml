@@ -8,6 +8,7 @@
 		<result column="userId" property="userId" />
 		<result column="referId" property="referId" />
 		<result column="referType" property="referType" />
+		<result column="reviewType" property="reviewType" />
 		<result column="addtime" property="addtime" />
 		<result column="status" property="status" />
 		<result column="review" property="review" />
@@ -21,7 +22,7 @@
 	</resultMap>
 
 	<sql id="selectAll">
-		SELECT T.id,T.userId,T.referId,T.referType,T.addtime,
+		SELECT T.id,T.userId,T.referId,T.referType,T.addtime,T.reviewType,
 		T.status,T.review,T.grade1,T.grade2,T.grade3,
 		T.age,T.skin,T.ip,T.platform
 		FROM Review T
@@ -39,10 +40,10 @@
 
 	<insert id="insert">
 		INSERT INTO Review
-		(userId, referId, referType, addtime,status, review,
+		(userId, referId, referType, addtime,status, review,reviewType,
 		grade1, grade2, grade3, age, skin, ip, platform)
 		VALUES
-		(#userId#,#referId#,#referType#,#addtime#,#status#,#review#,
+		(#userId#,#referId#,#referType#,#addtime#,#status#,#review#,#reviewType#,
 		#grade1#,#grade2#,#grade3#,#age#,#skin#,#ip#,#platform#)
 		<selectKey keyProperty="id" resultClass="int">
 			SELECT last_insert_id();

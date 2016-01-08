@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hzdp.review.bean.ReviewListRequest;
+import com.hzdp.review.bean.ReviewListResponse;
 import com.hzdp.review.bean.ReviewRequest;
 import com.hzdp.review.bean.ReviewResponse;
 import com.hzdp.review.dao.ReviewDao;
@@ -73,6 +75,12 @@ public class ReviewServiceImpl implements ReviewService {
 			logger.error(e, e);
 		}
 		return response;
+	}
+
+	@Override
+	public ReviewListResponse pageReviews(ReviewListRequest request) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
