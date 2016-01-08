@@ -12,7 +12,8 @@ public class ReviewResponse implements Serializable {
 	public static int ResponseTypeOK = 1;// 1:成功
 	public static int ResponseTypeTooMuch = 2;// 2:评论太频繁,需要输入图形验证码
 	public static int ResponseTypeLoginRequired = 3;// 3:未登录
-	public static int ResponseTypeLengthDismatched = 4;// 3:点评内容长度不符合要求
+	public static int ResponseTypeLengthDismatched = 4;// 4:点评内容长度不符合要求
+	public static int ResponseTypeFailed = 5;// 5:系统错误
 
 	private int responseType = ResponseTypeOK;
 	private int reviewId;

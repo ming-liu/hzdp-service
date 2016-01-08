@@ -1,6 +1,8 @@
 package com.hzdp.review.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +74,7 @@ public class ReviewServiceImpl implements ReviewService {
 			int reviewId = reviewDao.save(entity);
 			response.setReviewId(reviewId);
 		} catch (SQLException e) {
+			response.setResponseType(ReviewResponse.ResponseTypeFailed);
 			logger.error(e, e);
 		}
 		return response;
@@ -79,8 +82,19 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public ReviewListResponse pageReviews(ReviewListRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		ReviewListResponse response = new ReviewListResponse();
+		try {
+			List<Review> reviewList = reviewDao.find(request.getProductId(), request.getProductType(), request.getReviewType(), request.getSkin(),
+					request.getAge(), request.getOffset(), request.getPageSize());
+			response.setReviewList(reviewList);
+		} catch (SQLException e) {
+			logger.error(e, e);
+		}
+		
+		if(response.getReviewList() == null){
+			response.setReviewList(new ArrayList<Review>());
+		}
+		return response;
 	}
 
 }

@@ -28,10 +28,26 @@
 		FROM Review T
 	</sql>
 
-	<select id="findByKey" resultMap="ReviewMap">
+	<select id="find" resultMap="ReviewMap">
 		<include refid="selectAll" />
-		Where T.key = #value#
-		limit 1
+		<dynamic prepend="WHERE">
+			<isNotEqual property="productId" compareValue="0" prepend="AND">
+				referId = #productId#
+			</isNotEqual>
+			<isNotEqual property="productType" compareValue="0" prepend="AND">
+				referType = #productType#
+			</isNotEqual>
+			<isNotEqual property="reviewType" compareValue="0" prepend="AND">
+				reviewType = #reviewType#
+			</isNotEqual>
+			<isNotEqual property="skin" compareValue="0" prepend="AND">
+				skin = #skin#
+			</isNotEqual>
+			<isNotEqual property="age" compareValue="0" prepend="AND">
+				age = #age#
+			</isNotEqual>
+			limit #offset#,#pageSize#
+		</dynamic>
 	</select>
 	
 	<select id="count" resultClass="java.lang.Long">
