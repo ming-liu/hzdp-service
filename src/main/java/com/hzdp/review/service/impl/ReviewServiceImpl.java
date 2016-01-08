@@ -10,6 +10,7 @@ import com.hzdp.review.bean.ReviewRequest;
 import com.hzdp.review.bean.ReviewResponse;
 import com.hzdp.review.dao.ReviewDao;
 import com.hzdp.review.entity.Review;
+import com.hzdp.review.filter.ReviewCheckFilterChain;
 import com.hzdp.review.service.ReviewService;
 import com.hzdp.util.CharUtils;
 import com.hzdp.util.IPUtil;
@@ -17,24 +18,38 @@ import com.hzdp.util.IPUtil;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
+	// private ConfigManager configManager =
+	// ConfigManagerLoader.getConfigManager();
 	protected Logger logger = Logger.getLogger(getClass());
 
 	@Autowired
 	private ReviewDao reviewDao;
 
+	@Autowired
+	private ReviewCheckFilterChain reviewCheckFilterChain;
+
 	@Override
 	public ReviewResponse addReview(ReviewRequest request) {
+		ReviewResponse response = new ReviewResponse();
+		int userId = request.getUserId();
+		if (userId <= 0) {
+			response.setResponseType(ReviewResponse.ResponseTypeLoginRequired);
+			return response;
+		}
+
+		reviewCheckFilterChain.dofilter(request, response);
+		if (!response.isSuccess()) {
+			return response;
+		}
+
 		String ip = request.getIp();
 		int grade = request.getGrade();
 		int age = request.getAge();
 		int productId = request.getProductId();
 		int productType = request.getProductType();
 		int skin = request.getSkin();
-		String url = request.getUrl();
-		int userId = request.getUserId();
-		String info = request.getInfo();
 
-		info = CharUtils.filterEmoticon(info);
+		String info = CharUtils.filterEmoticon(request.getInfo());
 		info = CharUtils.replaceScriptTag(info);
 
 		Review entity = new Review();
@@ -50,12 +65,14 @@ public class ReviewServiceImpl implements ReviewService {
 		entity.setReferType(productType);
 		entity.setStatus(1);
 		entity.setUserId(userId);
+		// entity.setUrls(urls.toString());
 		try {
-			reviewDao.save(entity);
+			int reviewId = reviewDao.save(entity);
+			response.setReviewId(reviewId);
 		} catch (SQLException e) {
 			logger.error(e, e);
 		}
-		return null;
+		return response;
 	}
 
 }

@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
-<sqlMap namespace="Cache">
-	
-	<resultMap id="CacheEntityMap" class="com.hzdp.cache.support.CacheEntity">
+<sqlMap namespace="Review">
+
+	<resultMap id="ReviewMap" class="com.hzdp.review.entity.Review">
 		<result column="id" property="id" />
-		<result column="cacheType" property="cacheType" />
-		<result column="key" property="key" />
-		<result column="value" property="value" />
-		<result column="expirePeriod" property="expirePeriod" />
-		<result column="addTime" property="addTime" />
+		<result column="userId" property="userId" />
+		<result column="referId" property="referId" />
+		<result column="referType" property="referType" />
+		<result column="addtime" property="addtime" />
+		<result column="status" property="status" />
+		<result column="review" property="review" />
+		<result column="grade1" property="grade1" />
+		<result column="grade2" property="grade2" />
+		<result column="grade3" property="grade3" />
+		<result column="age" property="age" />
+		<result column="skin" property="skin" />
+		<result column="ip" property="ip" />
+		<result column="platform" property="platform" />
 	</resultMap>
 
 	<sql id="selectAll">
-		SELECT T.id,T.cacheType,T.key,T.value,T.expirePeriod,T.addTime
-		FROM Cache T
+		SELECT T.id,T.userId,T.referId,T.referType,T.addtime,
+		T.status,T.review,T.grade1,T.grade2,T.grade3,
+		T.age,T.skin,T.ip,T.platform
+		FROM Review T
 	</sql>
 
-	<select id="findByKey" resultMap="CacheEntityMap">
+	<select id="findByKey" resultMap="ReviewMap">
 		<include refid="selectAll" />
 		Where T.key = #value#
 		limit 1
 	</select>
+	
+	<select id="count" resultClass="java.lang.Long">
+		select count(1) from Review where userId = #userId# and addtime >= #minAddTime# 
+	</select>
 
 	<insert id="insert">
-		insert into Cache(`cacheType`,`key`,`value`,`expirePeriod`,`addTime`) 
-		values
-		(#po.cacheType#,#po.key#,#po.value#,#po.expirePeriod#,#po.addTime#)
-		ON DUPLICATE KEY UPDATE `value` = #po.value#,`addTime` = #po.addTime#
+		INSERT INTO Review
+		(userId, referId, referType, addtime,status, review,
+		grade1, grade2, grade3, age, skin, ip, platform)
+		VALUES
+		(#userId#,#referId#,#referType#,#addtime#,#status#,#review#,
+		#grade1#,#grade2#,#grade3#,#age#,#skin#,#ip#,#platform#)
+		<selectKey keyProperty="id" resultClass="int">
+			SELECT last_insert_id();
+		</selectKey>
 	</insert>
 
 </sqlMap>

@@ -9,16 +9,23 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<context:property-placeholder location="classpath*:config/jdbc.properties"/>
-
-	<context:component-scan base-package="com.hzdp.dao" />
-	<context:component-scan base-package="com.hzdp.service" />
+	<context:component-scan base-package="com.hzdp.review" />
 	
-	<context:annotation-config />
-	<import resource="spring-hzdp-dao.xml"/>
-	<import resource="spring-hzdp-db.xml"/>
-	<import resource="spring-hzdp-cache.xml"/>
-	<import resource="spring-hzdp-sms.xml"/>
-	<import resource="spring-hzdp-user.xml"/>
-	<import resource="spring-hzdp-review.xml"/>
+	<bean id="reviewCheckFilterChain" name="reviewCheckFilterChain" class="com.hzdp.review.filter.impl.ReviewCheckFilterChainImpl">
+		<property name="filters">
+			<list>
+				<bean class="com.hzdp.review.filter.impl.ReivewLengthFilter" />
+				<bean class="com.hzdp.review.filter.impl.RishControlFilter" />
+			</list>
+		</property>
+	</bean>
+	
+<!-- 	<bean id="reviewFilters" name="reviewFilters" class="java.util.ArrayList"> -->
+<!-- 		<constructor-arg index="1"> -->
+<!-- 			<list> -->
+<!-- 				<ref local=""/> -->
+<!-- 			</list> -->
+<!-- 		</constructor-arg> -->
+<!-- 	</bean> -->
+	
 </beans>

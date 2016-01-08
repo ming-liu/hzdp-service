@@ -27,6 +27,9 @@ public class Review implements Serializable {
 	private int skin;
 	private long ip;
 	private int platform;
+	
+	// TODO to remove,use review image
+	private String urls;
 
 	public int getId() {
 		return id;
@@ -138,6 +141,14 @@ public class Review implements Serializable {
 
 	public void setPlatform(int platform) {
 		this.platform = platform;
+	}
+
+	public String getUrls() {
+		return urls;
+	}
+
+	public void setUrls(String urls) {
+		this.urls = urls;
 	}
 
 }

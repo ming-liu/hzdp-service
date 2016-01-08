@@ -16,9 +16,10 @@ public class ReviewRequest implements Serializable {
 	private int grade;
 	private int age;
 	private int skin;
-	private String url;
+	private String[] urls;
 	private String info;
 	private int platform;
+	private boolean captchaChecked = false;
 
 	public int getProductId() {
 		return productId;
@@ -76,12 +77,12 @@ public class ReviewRequest implements Serializable {
 		this.skin = skin;
 	}
 
-	public String getUrl() {
-		return url;
+	public String[] getUrls() {
+		return urls;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUrls(String[] urls) {
+		this.urls = urls;
 	}
 
 	public String getInfo() {
@@ -98,6 +99,14 @@ public class ReviewRequest implements Serializable {
 
 	public void setPlatform(int platform) {
 		this.platform = platform;
+	}
+
+	public boolean isCaptchaChecked() {
+		return captchaChecked;
+	}
+
+	public void setCaptchaChecked(boolean captchaChecked) {
+		this.captchaChecked = captchaChecked;
 	}
 
 }
