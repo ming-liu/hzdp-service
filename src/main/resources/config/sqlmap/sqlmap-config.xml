@@ -10,4 +10,5 @@
 	<sqlMap resource="config/sqlmap/Cache.xml" />
 	<sqlMap resource="config/sqlmap/Sms.xml" />
 	<sqlMap resource="config/sqlmap/Review.xml" />
+	<sqlMap resource="config/sqlmap/Product.xml" />
 </sqlMapConfig>
