@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product findById(int productId) {
 		Product product = null;
 		try {
-			productDao.queryObject("UserAccount.findById", productId);
+			product = productDao.findById(productId);
 		} catch (SQLException e) {
 			logger.error("find product error!", e);
 		}
