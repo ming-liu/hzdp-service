@@ -1,6 +1,8 @@
 package com.hzdp.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,16 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 		return product;
+	}
+	
+	@Override
+	public List<Product> findAll(String name, int offset, int pageSize) {
+		List<Product> productList = new ArrayList<Product>();
+		try {
+			productList = productDao.findAll(name,offset,pageSize);
+		} catch (SQLException e) {
+			logger.error("find productList error!", e);
+		}
+		return productList;
 	}
 }
