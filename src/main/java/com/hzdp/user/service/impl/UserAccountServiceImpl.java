@@ -1,7 +1,9 @@
 package com.hzdp.user.service.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -139,6 +141,20 @@ public class UserAccountServiceImpl implements UserAccountService {
 		} catch (Throwable e) {
 		}
 		return 0;
+	}
+
+	@Override
+	public List<UserAccount> findByIds(List<Integer> userIds) {
+		if (userIds == null || userIds.size() == 0) {
+			return new ArrayList<UserAccount>();
+		}
+		List<UserAccount> users = null;
+		try {
+			users = userAccountDao.findByIds(userIds);
+		} catch (SQLException e) {
+			logger.error("findByIds", e);
+		}
+		return users;
 	}
 
 }

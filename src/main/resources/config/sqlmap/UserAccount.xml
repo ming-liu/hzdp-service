@@ -26,6 +26,14 @@
 		Where T.id = #value#
 	</select>
 	
+	<select id="findByIds" resultMap="UserAccountMap">
+		<include refid="selectAll" />
+		Where T.id in
+		<iterate property="ids" conjunction="," open="(" close=")">
+                #ids[]#
+        </iterate>
+	</select>
+	
 	<select id="findByMobile" resultMap="UserAccountMap" >
 		<include refid="selectAll" />
 		Where T.mobile = #value#

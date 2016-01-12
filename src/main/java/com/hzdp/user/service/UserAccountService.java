@@ -1,5 +1,7 @@
 package com.hzdp.user.service;
 
+import java.util.List;
+
 import com.hzdp.entity.UserAccount;
 
 public interface UserAccountService {
@@ -22,4 +24,7 @@ public interface UserAccountService {
 	boolean checkPwd(String password, UserAccount userAccount);
 	
 	int parseToken(String token);
+	
+	List<UserAccount> findByIds(List<Integer> userIds);
+	
 }
