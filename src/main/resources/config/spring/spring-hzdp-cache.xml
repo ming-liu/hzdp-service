@@ -27,6 +27,12 @@
 						<property name="expirePeriod" value="60"></property>
 					</bean>
 				</entry>
+				<entry key="review-captcha-required">
+					<bean class="com.hzdp.cache.support.simple.DefaultCacheType">
+						<property name="type" value="3"></property>
+						<property name="expirePeriod" value="120"></property>
+					</bean>
+				</entry>
 			</map>
 		</constructor-arg>
 	</bean>

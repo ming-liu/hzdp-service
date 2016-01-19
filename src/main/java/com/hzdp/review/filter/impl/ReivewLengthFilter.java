@@ -11,7 +11,7 @@ public class ReivewLengthFilter implements ReviewCheckFilter {
 
 	@Override
 	public void filter(ReviewRequest request, ReviewResponse response, ReviewCheckFilterChain chain) {
-		String info = request.getInfo().trim();
+		String info = request.getInfo() == null ? null : request.getInfo().trim();
 		if (StringUtils.isEmpty(info) || info.length() < 15) {
 			response.setResponseType(ReviewResponse.ResponseTypeLengthDismatched);
 			return;
