@@ -23,4 +23,10 @@
 		Where T.id = #value#
 	</select>
 	
+	<select id="findAll" resultMap="ProductMap" parameterClass="int">
+		<include refid="selectAll" />
+		Where T.name like #name#
+		limit #offset#,#pageSize#
+	</select>
+	
 </sqlMap>
