@@ -15,6 +15,7 @@
 
 	<sql id="selectAll">
 		SELECT T.picture,T.name,T.specifications,T.categoryId,T.efficacy,T.productInfo,T.star
+		SELECT T.name
 		FROM Product T
 	</sql>
 
@@ -23,10 +24,12 @@
 		Where T.id = #value#
 	</select>
 	
-	<select id="findAll" resultMap="ProductMap" parameterClass="int">
+	<select id="findAll" resultMap="ProductMap">
 		<include refid="selectAll" />
-		Where T.name like #name#
-		limit #offset#,#pageSize#
+			Where T.name like CONCAT('%', #name#, '%')
+		<dynamic prepend="limit ">
+			#offset#,#pageSize#
+		</dynamic>
 	</select>
 	
 </sqlMap>
