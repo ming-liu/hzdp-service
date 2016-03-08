@@ -2,6 +2,7 @@ package com.hzdp.crypto.codec;
 
 import java.security.MessageDigest;
 
+// replace with org.apache.commons.codec.digest.DigestUtils.md5Hex(String)
 public class MD5 {
 
 	public static final String MD5 = "MD5";

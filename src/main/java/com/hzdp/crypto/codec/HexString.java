@@ -2,17 +2,18 @@ package com.hzdp.crypto.codec;
 
 public class HexString {
 
+	private static final char[] CHARS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+
 	public static String convertByte2Hex(byte[] encrpt) {
-		StringBuilder sb = new StringBuilder();
-		for (byte b : encrpt) {
-			int ab = b & 0xFF;
-			String hex = Integer.toHexString(ab);
-			if (hex.length() == 1) {
-				hex = '0' + hex;
-			}
-			sb.append(hex);
+		int l = encrpt.length;
+		char[] out = new char[l << 1];
+
+		for (int i = 0, j = 0; i < l; i++) {
+			out[j++] = CHARS[(encrpt[i] & 0xf0) >>> 4];
+			out[j++] = CHARS[encrpt[i] & 0x0f];
 		}
-		return sb.toString();
+
+		return new String(out);
 	}
 
 	public static byte[] converHexStr2Bytes(String token) {
